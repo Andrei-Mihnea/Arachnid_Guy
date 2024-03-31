@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Sprite {
 
-    private final BufferedImage SPRITESHEET = null;
+    private BufferedImage SPRITESHEET = null;
     private BufferedImage[][] spriteArray;
     private final int TILE_SIZE = 32;
     public int w;
@@ -22,7 +22,7 @@ public class Sprite {
         w = TILE_SIZE;
         h = TILE_SIZE;
 
-        System.out.println("Loadint: "+ file+ "...");
+        System.out.println("Loading: "+ file+ "...");
         SPRITESHEET = loadSprite(file);
 
         wSprite = SPRITESHEET.getWidth()/w;
@@ -34,7 +34,7 @@ public class Sprite {
         this.w = w;
         this.h = h;
 
-        System.out.println("Loadint: "+ file+ "...");
+        System.out.println("Loading: "+ file+ "...");
         SPRITESHEET = loadSprite(file);
 
         wSprite = SPRITESHEET.getWidth()/w;
@@ -71,12 +71,13 @@ public class Sprite {
         return sprite;
     }
 
-    public void loadSpriteArray(){
-        spriteArray = new BufferedImage[wSprite][hSprite];
+    public void loadSpriteArray() {
+        spriteArray = new BufferedImage[hSprite][wSprite];
 
-        for(int x = 0; x<wSprite; ++x){
-            for(int y = 0; y<hSprite;++y){
-                spriteArray[x][y] = getSprite(x,y);
+
+        for (int y = 0; y < hSprite; ++y) {
+            for (int x = 0; x < wSprite; ++x) {
+                spriteArray[y][x] = getSprite(x, y);
             }
         }
     }
@@ -89,7 +90,7 @@ public class Sprite {
         return SPRITESHEET.getSubimage(x*w,y*h,w,h);
     }
 
-    public BufferedImage[] getSpriteArrat(int i){
+    public BufferedImage[] getSpriteArray(int i){
         return spriteArray[i];
     }
 
@@ -115,12 +116,13 @@ public class Sprite {
         float x = pos.x;
         float y = pos.y;
 
-        for(int i=0; i<word.length();++i){
-            if(word.charAt(i) != 32){
-                g.drawImage(f.getFont(word.charAt(i)),(int)x,(int)y,width,height,null);
+        for(int i=0; i<word.length();++i) {
+            if (word.charAt(i) != 32) {
+                g.drawImage(f.getFont(word.charAt(i)), (int) x, (int) y, width, height, null);
             }
+            x += xOffset;
+            y += yOffset;
         }
-        x+= xOffset;
-        y+= yOffset;
+
     }
 }
