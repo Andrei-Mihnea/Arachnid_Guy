@@ -1,12 +1,9 @@
 package Game.Graphics;
 
-import Game.Util.Vector2f;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
-import java.util.ArrayList;
+import java.io.File;
 
 public class Font {
 
@@ -95,11 +92,12 @@ public class Font {
     }
 
     public BufferedImage getFont(char letter){
-        int value = letter - 65;
+        int value = letter;
 
         int x = value % wLetter;
         int y = value / wLetter;
 
         return getLetter(x,y);
     }
+
 }

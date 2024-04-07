@@ -35,19 +35,17 @@ public abstract class Entity {
     protected float dx;
     protected float dy;
 
-    protected float boundY = 600f;
-    protected float boundX = 1200f;
 
-    protected float maxSpeed = 4f;
+    protected float maxSpeed = 3f;
     protected float acc = 3f;
-    protected float deacc = 0.3f;
+    protected float deacc = 2f;
 
     protected AABB hitBounds;
     protected AABB bounds;
 
     public Entity(Sprite sprite, Vector2f origin, int size){
         this.sprite = sprite;
-        pos = origin;
+        pos = new Vector2f(origin);
         this.size = size;
 
         bounds = new AABB(origin, size, size);

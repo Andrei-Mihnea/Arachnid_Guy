@@ -16,7 +16,8 @@ public class Vector2f {
     }
 
     public Vector2f(Vector2f vec){
-        new Vector2f(vec.x,vec.y);
+        this.x = vec.x;
+        this.y = vec.y;
     }
 
     public Vector2f(float x, float y){

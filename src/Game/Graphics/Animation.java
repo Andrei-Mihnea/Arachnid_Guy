@@ -39,7 +39,7 @@ public class Animation {
         if(delay == -1) return;
 
         ++count;
-        System.out.println(count);
+
         if(count == delay){
             currentFrame++;
             count = 0;
