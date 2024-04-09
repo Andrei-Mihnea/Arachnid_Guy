@@ -12,7 +12,7 @@ public abstract class Block {
 
     protected BufferedImage img;
     protected Vector2f pos;
-
+    public int type;
     public Block(BufferedImage img, Vector2f pos, int w, int h){
         this.img = img;
         this.pos = pos;

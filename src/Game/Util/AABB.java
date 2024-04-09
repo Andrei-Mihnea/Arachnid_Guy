@@ -3,9 +3,13 @@ package Game.Util;
 import Game.Entity.Entity;
 import Game.Tiles.TileMapObj;
 
+import javax.sound.midi.SysexMessage;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AABB {
 
-    private Vector2f pos;
+    public Vector2f pos;
     private float xOffset = 0;
     private float yOffset = 0;
     private float w;
@@ -90,14 +94,23 @@ public class AABB {
     }
 
     public boolean collisionTILE(float ax, float ay){
+        List<Integer> xl = new ArrayList<Integer>();
+        List<Integer> yl = new ArrayList<Integer>();
         for (int c = 0; c < 4;++c){
             int xt = (int) ((pos.x + ax)+ (c % 2) * w + xOffset)/64;
             int yt = (int) ((pos.y + ay)+ ((int)(c / 2))* h + yOffset)/64;
 
+            xl.add(xt);
+            yl.add(yt);
+            System.out.println((pos.x+ax)+ " "+(pos.y+ay));
             if(TileMapObj.tmo_blocks.containsKey(String.valueOf(xt)+","+String.valueOf(yt))){
+                int res = TileMapObj.tmo_blocks.get(String.valueOf(xt) + "," + String.valueOf(yt)).type;
+
                 return TileMapObj.tmo_blocks.get(String.valueOf(xt) + "," + String.valueOf(yt)).update(this);
             }
         }
+
+
         return false;
     }
 }

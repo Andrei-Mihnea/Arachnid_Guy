@@ -23,7 +23,7 @@ public class TileManager {
 
     public TileManager(String path){
         tm = new ArrayList<TileMap>();
-        addTileMap(path,56,56);
+        addTileMap(path,64,64);
     }
 
     private void addTileMap(String path, int blockWidth, int blockHeight){
@@ -73,7 +73,6 @@ public class TileManager {
                 }
 
                 data[i] = eElement.getElementsByTagName("data").item(0).getTextContent();
-                System.out.println(data[i]);
 
                 if(i >= 1){
 

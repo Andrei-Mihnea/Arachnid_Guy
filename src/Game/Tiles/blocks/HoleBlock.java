@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 public class HoleBlock extends Block{
     public HoleBlock(BufferedImage img, Vector2f pos, int w, int h){
         super(img,pos,w,h);
+        type = 0;
     }
 
     public boolean update(AABB p){

@@ -9,8 +9,12 @@ import java.awt.image.BufferedImage;
 public class ObjBlock extends Block{
 
     public ObjBlock(BufferedImage img, Vector2f pos, int w, int h){
+
         super(img,pos,w,h);
+        type = 2;
     }
+
+
 
     public boolean update(AABB p){
         return true;

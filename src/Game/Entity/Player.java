@@ -90,19 +90,15 @@ public class Player extends Entity{
         if(!bounds.collisionTILE(dx,0)){
             PlayState.map.x+=dx;
             pos.x += dx;
+            bounds.pos.x = pos.x;
+
         }
         if(!bounds.collisionTILE(0,dy)) {
             PlayState.map.y += dy;
             pos.y += dy;
+            bounds.pos.y = pos.y;
         }
 
-        /*
-        PlayState.map.x += dx;
-        PlayState.map.y += dy;
-        pos.x += dx;
-        pos.y += dy;
-        */
-        //System.out.println(dx+","+dy);
     }
 
     @Override

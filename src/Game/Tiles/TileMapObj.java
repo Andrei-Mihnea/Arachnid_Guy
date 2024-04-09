@@ -24,13 +24,13 @@ public class TileMapObj  extends TileMap{
             int temp = Integer.parseInt(block[i].replaceAll("\\s+",""));
             //System.out.println(temp);
             if(temp!=0){
-                if(temp == 11){
-                    System.out.println(1);
+                if(temp != 2 && temp != 3 && temp != 4 && temp != 5 && temp != 13){
                     tempBlock = new HoleBlock(sprite.getSprite( (int) (( temp - 1 ) % tileColumns),(int)((temp-1) / tileColumns)), new Vector2f((int)(i%width)*tileWidth,(int)(i/height)*tileHeight),tileWidth,tileHeight);
-                    System.out.println(1);
+
                 } else{
-                    System.out.println(2);
                     tempBlock = new ObjBlock(sprite.getSprite( (int) (( temp - 1 ) % tileColumns),(int)((temp-1) / tileColumns)), new Vector2f((int)(i%width)*tileWidth,(int)(i/height)*tileHeight),tileWidth,tileHeight);
+
+                    System.out.println( (int)(i%width)*tileWidth+" "+(int)(i/height)*tileHeight);
                 }
                 tmo_blocks.put(String.valueOf((int)(i%width))+","+String.valueOf((int)(i/height)),tempBlock);
             }
