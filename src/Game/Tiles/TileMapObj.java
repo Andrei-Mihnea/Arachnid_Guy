@@ -24,7 +24,7 @@ public class TileMapObj  extends TileMap{
             int temp = Integer.parseInt(block[i].replaceAll("\\s+",""));
             //System.out.println(temp);
             if(temp!=0){
-                if(temp != 2 && temp != 3 && temp != 4 && temp != 5 && temp != 13){
+                if(temp != 2 && temp != 3 && temp != 4 && temp != 5 && temp != 13&& temp !=6){
                     tempBlock = new HoleBlock(sprite.getSprite( (int) (( temp - 1 ) % tileColumns),(int)((temp-1) / tileColumns)), new Vector2f((int)(i%width)*tileWidth,(int)(i/height)*tileHeight),tileWidth,tileHeight);
 
                 } else{

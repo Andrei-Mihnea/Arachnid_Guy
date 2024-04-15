@@ -28,13 +28,13 @@ public class PlayState extends GameState{
 
         tm = new TileManager("tile/TEST01.xml");
         font = new Font("font/font.png",10,10);
-        player = new Player(new Sprite("entity/Onyx_Cartier.png"), new Vector2f(0+(GamePanel.width/2)-20,0+(GamePanel.height/2)+100), 128);
+        player = new Player(new Sprite("entity/Onyx_Cartier.png"), new Vector2f(0+(GamePanel.width/2)-150,0+(GamePanel.height/2)+150), 128);
 
     }
     private String damn = "Type Shit";
 
     public void update(){
-        Vector2f.setWorldVar(map.x, map.y);
+        Vector2f.setWorldVar(map.x-35, map.y+100);
         player.update();
     }
 

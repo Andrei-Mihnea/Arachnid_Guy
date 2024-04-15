@@ -48,7 +48,7 @@ public abstract class Entity {
         pos = new Vector2f(origin);
         this.size = size;
 
-        bounds = new AABB(origin, size, size);
+        bounds = new AABB(origin, size/2-30, size-55);
         hitBounds = new AABB(new Vector2f(origin.x + ((float) size /2),origin.y), size, size);
 
         ani = new Animation();
@@ -98,7 +98,7 @@ public abstract class Entity {
             }
         }
         else{
-            setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation),2);
+            setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation),4);
         }
     }
 

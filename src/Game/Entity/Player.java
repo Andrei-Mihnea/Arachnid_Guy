@@ -16,6 +16,8 @@ public class Player extends Entity{
         super(sprite, origin, size);
         acc = 2f;
         maxSpeed = 3f;
+        bounds.setXOffset(50);
+        bounds.setYOffset(30);
     }
 
     public void move(){
