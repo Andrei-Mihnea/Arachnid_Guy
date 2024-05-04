@@ -1,5 +1,6 @@
 package Game.States;
 
+import Game.Entity.Enemy;
 import Game.Entity.Player;
 import Game.GamePanel;
 import Game.Graphics.Font;
@@ -16,6 +17,7 @@ public class PlayState extends GameState{
 
     private Font font;
     private Player player;
+    private Enemy enemy;
     private TileManager tm;
 
 
@@ -28,14 +30,22 @@ public class PlayState extends GameState{
 
         tm = new TileManager("tile/TEST01.xml");
         font = new Font("font/font.png",10,10);
-        player = new Player(new Sprite("entity/Onyx_Cartier.png"), new Vector2f(0+(GamePanel.width/2)-150,0+(GamePanel.height/2)+150), 128);
+
+        Sprite sprite_enemy = new Sprite("entity/guard_white_enemy.png",16);
+
+        sprite_enemy.setSize(16,16);
+
+        player = new Player(new Sprite("entity/Onyx_Cartier.png",32), new Vector2f(0+(GamePanel.width/2)-150,0+(GamePanel.height/2)+150), 128);
+        enemy =  new Enemy(sprite_enemy, new Vector2f(0+(GamePanel.width/2) + 100,0+(GamePanel.height/2) + 150), 64);
+
 
     }
-    private String damn = "Type Shit";
+    private String damn = "Level_Demo";
 
     public void update(){
         Vector2f.setWorldVar(map.x-35, map.y+100);
         player.update();
+        enemy.update(player.getBounds());
     }
 
     public void input(MouseHandler mouse, KeyHandler key){
@@ -47,8 +57,8 @@ public class PlayState extends GameState{
         tm.render(g);
         Sprite.drawArray(g,font, GamePanel.oldFrameCount+"FPS", new Vector2f(GamePanel.width -192 ,32),32,32,28,0);
         Sprite.drawArray(g,font,damn,new Vector2f(0,64),32,32,21,0);
-
         player.render(g);
+        enemy.render(g);
     }
 
 }

@@ -79,7 +79,7 @@ public class AABB {
         return false;
     }
 
-    public boolean colCircleBox(AABB aBox){
+   /* public boolean colCircleBox(AABB aBox){
         float cx = (float) (pos.getWorldVar().x + r / Math.sqrt(2) - e.getSize() / Math.sqrt(2));
         float cy = (float) (pos.getWorldVar().y + r / Math.sqrt(2) - e.getSize() / Math.sqrt(2));
 
@@ -91,7 +91,7 @@ public class AABB {
         }
 
         return false;
-    }
+    }*/
 
     public boolean collisionTILE(float ax, float ay){
         List<Integer> xl = new ArrayList<Integer>();
@@ -102,7 +102,7 @@ public class AABB {
 
             xl.add(xt);
             yl.add(yt);
-            System.out.println((pos.x+ax)+ " "+(pos.y+ay));
+            //System.out.println((pos.x+ax)+ " "+(pos.y+ay));
             if(TileMapObj.tmo_blocks.containsKey(String.valueOf(xt)+","+String.valueOf(yt))){
                 int res = TileMapObj.tmo_blocks.get(String.valueOf(xt) + "," + String.valueOf(yt)).type;
 
@@ -110,6 +110,21 @@ public class AABB {
             }
         }
 
+
+        return false;
+    }
+
+    public boolean colCircleBox(AABB aBox){
+        float dx = Math.max(aBox.getPos().x + aBox.getXOffset(), Math.min(pos.getWorldVar().x + (r / 2), aBox.getPos().getWorldVar().x + aBox.getXOffset() + aBox.getWidth()));
+        float dy = Math.max(aBox.getPos().y + aBox.getYOffset(), Math.min(pos.getWorldVar().y + (r / 2), aBox.getPos().getWorldVar().y + aBox.getYOffset() + aBox.getHeight()));
+        dx = pos.getWorldVar().x + (r / 2) - dx;
+        dy = pos.getWorldVar().y + (r / 2) - dy;
+
+        System.out.println(Math.sqrt(dx * dx + dy * dy) < (r / 2));
+
+        if( Math.sqrt(dx * dx + dy * dy) < (r / 2)){
+            return true;
+        }
 
         return false;
     }

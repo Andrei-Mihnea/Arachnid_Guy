@@ -30,7 +30,7 @@ public class TileMapObj  extends TileMap{
                 } else{
                     tempBlock = new ObjBlock(sprite.getSprite( (int) (( temp - 1 ) % tileColumns),(int)((temp-1) / tileColumns)), new Vector2f((int)(i%width)*tileWidth,(int)(i/height)*tileHeight),tileWidth,tileHeight);
 
-                    System.out.println( (int)(i%width)*tileWidth+" "+(int)(i/height)*tileHeight);
+                    //System.out.println( (int)(i%width)*tileWidth+" "+(int)(i/height)*tileHeight);
                 }
                 tmo_blocks.put(String.valueOf((int)(i%width))+","+String.valueOf((int)(i/height)),tempBlock);
             }

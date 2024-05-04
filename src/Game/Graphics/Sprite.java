@@ -12,15 +12,20 @@ public class Sprite {
 
     private BufferedImage SPRITESHEET = null;
     private BufferedImage[][] spriteArray;
-    private final int TILE_SIZE = 32;
+    private int tile_size;
     public int w;
     public int h;
     private int wSprite;
     private int hSprite;
 
-    public Sprite(String file){
-        w = TILE_SIZE;
-        h = TILE_SIZE;
+    public Sprite(String file, int Tile_size){
+        tile_size = Tile_size;
+
+        w = tile_size;
+        h = tile_size;
+
+
+        //System.out.println(w+", "+h);
 
         System.out.println("Loading: "+ file+ "...");
         SPRITESHEET = loadSprite(file);
