@@ -42,6 +42,7 @@ public abstract class Entity {
 
     protected AABB hitBounds;
     protected AABB bounds;
+    protected AABB tc;
 
     public Entity(Sprite sprite, Vector2f origin, int size){
         this.sprite = sprite;

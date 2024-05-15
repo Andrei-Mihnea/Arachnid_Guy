@@ -2,6 +2,8 @@ package Game.Util;
 
 import java.util.Vector;
 
+import static java.lang.Math.sqrt;
+
 public class Vector2f {
 
     public float x;
@@ -44,6 +46,10 @@ public class Vector2f {
     public static void setWorldVar(float x, float y){
         worldX = x;
         worldY = y;
+    }
+
+    public static float distance(Vector2f v1, Vector2f v2){
+        return (float)sqrt((v1.y - v2.y)*(v1.y - v2.y)+(v1.x - v2.x)*(v1.x - v2.x));
     }
 
     public Vector2f getWorldVar(){

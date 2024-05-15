@@ -24,7 +24,9 @@ public class GameStateManager {
         Vector2f.setWorldVar(map.x,map.y);
         states = new ArrayList<GameState>();
 
+        
         states.add(new PlayState(this));
+
 
     }
 
@@ -37,7 +39,7 @@ public class GameStateManager {
             states.add(new PlayState(this));
         }
         if(state == MENU){
-            states.add(new MenuState(this));
+
         }
         if(state == PAUSE){
             states.add(new PauseState(this));

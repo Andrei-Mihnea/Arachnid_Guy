@@ -2,6 +2,8 @@ package Game.Util;
 
 import Game.Entity.Entity;
 import Game.Tiles.TileMapObj;
+import Game.Tiles.blocks.Block;
+import Game.Tiles.blocks.HoleBlock;
 
 import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
@@ -17,6 +19,11 @@ public class AABB {
     private float r;
     private int size;
     private Entity e;
+
+    public AABB(Entity e){
+        this.e = e;
+        this.pos = new Vector2f(0,0);
+    }
 
     public AABB(Vector2f pos, int w,int h){
         this.pos = pos;
@@ -93,7 +100,7 @@ public class AABB {
         return false;
     }*/
 
-    public boolean collisionTILE(float ax, float ay){
+    public boolean collisionTile(float ax, float ay){
         List<Integer> xl = new ArrayList<Integer>();
         List<Integer> yl = new ArrayList<Integer>();
         for (int c = 0; c < 4;++c){
@@ -114,18 +121,49 @@ public class AABB {
         return false;
     }
 
+    /*public boolean collisionTile(float ax, float ay) {
+        for (int c = 0; c < 4; ++c) {
+
+            int xt = (int) ((e.getBounds().getPos().x + ax) + (c % 2) * e.getBounds().getWidth() + e.getBounds().getXOffset()) / 64;
+            int yt = (int) ( (e.getBounds().getPos().y + ay) + ((int)(c/2)) * e.getBounds().getHeight()+ e.getBounds().getYOffset())/64;
+
+            if(TileMapObj.tmo_blocks.containsKey(String.valueOf(xt)+","+String.valueOf(yt))){
+                Block block = TileMapObj.tmo_blocks.get(String.valueOf(xt)+","+String.valueOf(yt));
+                if(block instanceof HoleBlock){
+                    return collisionHole(ax,ay,xt,yt,block);
+                }
+            }
+        }
+        return false;
+    }*/
+
+    public boolean collisionHole(float ax,float ay,float xt, float yt, Block block){
+        int nextXt = (int) ((e.getBounds().getPos().x + ax) + e.getBounds().getWidth() + e.getBounds().getXOffset()) / 64;
+        int nextYt = (int) ( (e.getBounds().getPos().y + ay) + e.getBounds().getHeight()+ e.getBounds().getYOffset())/64;
+
+        if((nextXt == yt + 1) || (nextXt == xt + 1)){
+            if(TileMapObj.tmo_blocks.containsKey(String.valueOf(nextXt)+","+String.valueOf(nextYt))){
+                Block blockNeighbor = TileMapObj.tmo_blocks.get(String.valueOf(nextXt)+"," +String.valueOf(nextYt));
+                return blockNeighbor.update(e.getBounds());
+            }
+        }
+
+        return false;
+    }
     public boolean colCircleBox(AABB aBox){
         float dx = Math.max(aBox.getPos().getWorldVar().x + aBox.getXOffset(), Math.min(pos.getWorldVar().x + (r / 2), aBox.getPos().getWorldVar().x + aBox.getXOffset() + aBox.getWidth()));
         float dy = Math.max(aBox.getPos().getWorldVar().y + aBox.getYOffset(), Math.min(pos.getWorldVar().y + (r / 2), aBox.getPos().getWorldVar().y + aBox.getYOffset() + aBox.getHeight()));
         dx = pos.getWorldVar().x + (r / 2) - dx;
         dy = pos.getWorldVar().y + (r / 2) - dy;
 
-
-
-        if( Math.sqrt(dx * dx + dy * dy) < (r / 2)){
+        //System.out.println(Vector2f.distance(aBox.pos,pos)+" "+pos);
+        if(Vector2f.distance(aBox.pos,pos) < 250)
+            return true;
+        /*if( Math.sqrt(dx * dx + dy * dy) < (r / 2)){
             return true;
         }
-
+*/
         return false;
+
     }
 }

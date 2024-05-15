@@ -13,4 +13,10 @@ public class Window extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    public void dispose(){
+        this.setVisible(false);
+        System.exit(0);
+        //this.dispose();
+    }
 }

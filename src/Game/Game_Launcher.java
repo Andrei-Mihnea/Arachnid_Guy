@@ -1,14 +1,20 @@
 package Game;
 
 public class Game_Launcher {
-
+    public Window window;
     public Game_Launcher(){
-        new Window();
+        window = new Window();
+
     }
+
+    public static Game_Launcher Instance;
+
+
 
     public static void main(String[] args)
     {
-        new Game_Launcher();
+        Instance = new Game_Launcher();
+
     }
 
 }
