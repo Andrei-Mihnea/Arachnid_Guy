@@ -55,7 +55,7 @@ public class PlayState extends GameState{
     public void render(Graphics2D g){
 
         tm.render(g);
-        Sprite.drawArray(g,font, GamePanel.oldFrameCount+"FPS", new Vector2f(GamePanel.width -192 ,32),32,32,28,0);
+        Sprite.drawArray(g,font, GamePanel.oldFrameCount+"FPS", new Vector2f(GamePanel.width -192 ,32),32,32);
         Sprite.drawArray(g,font,damn,new Vector2f(0,64),32,32,21,0);
         player.render(g);
         enemy.render(g);

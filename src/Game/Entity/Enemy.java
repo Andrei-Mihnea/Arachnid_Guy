@@ -34,64 +34,55 @@ public class Enemy extends Entity{
 
         if(sense.colCircleBox(player.getBounds())) {
             //System.out.println(1);
-            if (pos.y > player.pos.y) {
+            if (pos.y > player.pos.y+1) {
                 dy -= acc;
-                if (dy < maxSpeed) {
+                up = true;
+                down = false;
+                if (dy < -maxSpeed) {
                     dy = -maxSpeed;
                 }
-            } else {
-                if (dy < 0) {
-                    dy += deacc;
-                    if (dy > 0) {
-                        dy = 0;
-                    }
-                }
-            }
-            if (pos.y < player.pos.y) {
+            }else if (pos.y < player.pos.y-1) {
                 dy += acc;
-                if (dy > 0) {
+                down = true;
+                up = false;
+                if (dy > maxSpeed) {
                     dy = maxSpeed;
                 }
 
             } else {
-                if (dy > 0) {
-                    dy -= deacc;
-                    if (dy < 0) {
-                        dy = 0;
-                    }
-                }
+                dy = 0;
+                up = false;
+                down = false;
             }
-            if (pos.x > player.pos.x) {
+
+            if (pos.x > player.pos.x+1) {
                 dx -= acc;
-                if (dx < 0) {
+                right = false;
+                left = true;
+                if (dx < -maxSpeed) {
                     dx = -maxSpeed;
                 }
                 //dx = -maxSpeed;
-            } else {
-                if (dx < 0) {
-                    dx += deacc;
-                    if (dx > 0) {
-                        dx = 0;
-                    }
-                }
-            }
-            if (pos.x < player.pos.x) {
+            } else if (pos.x < player.pos.x-1) {
                 dx += acc;
+                right = true;
+                left = false;
                 if (dx > maxSpeed)
                     dx = maxSpeed;
 
                 //dx = maxSpeed;
 
             } else {
-                if (dx > 0) {
-                    dx -= deacc;
-                    if (dx < 0) {
-                        dx = 0;
-                    }
-                }
+              dx = 0;
+              right = false;
+              left = false;
             }
 
         } else{
+            up = false;
+            down = false;
+            left = false;
+            right = false;
             dx = 0;
             dy = 0;
         }
@@ -104,14 +95,14 @@ public class Enemy extends Entity{
         super.update();
         move(player);
 
-        if(!tc.collisionTile(dx, 0)) {
+        if(!sense.collisionTile(dx, 0)) {
 
             sense.getPos().x += dx;
             pos.x += dx;
 
 
         }
-        if(!tc.collisionTile(0,dy)){
+        if(!sense.collisionTile(0,dy)){
             sense.getPos().y += dy;
             pos.y += dy;
         }
