@@ -37,6 +37,7 @@ public class PlayState extends GameState{
 
         player = new Player(new Sprite("entity/Onyx_Cartier.png",32), new Vector2f(0+(GamePanel.width/2)-150,0+(GamePanel.height/2)+150), 128);
         enemy =  new Enemy(sprite_enemy, new Vector2f(0+(GamePanel.width/2) + 100,0+(GamePanel.height/2) + 150), 64);
+        enemy.setOrder(0,1,2,3,4);
 
 
     }
@@ -44,7 +45,7 @@ public class PlayState extends GameState{
 
     public void update(){
         Vector2f.setWorldVar(map.x-35, map.y+100);
-        player.update();
+        player.update(enemy);
         enemy.update(player);
     }
 

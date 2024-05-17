@@ -1,5 +1,6 @@
 package Game.Entity;
 
+import Game.GamePanel;
 import Game.Graphics.Sprite;
 import Game.States.PlayState;
 import Game.Util.KeyHandler;
@@ -8,6 +9,7 @@ import Game.Util.Vector2f;
 import Game.States.PlayState;
 
 import java.awt.*;
+import java.sql.SQLOutput;
 
 public class Player extends Entity{
 
@@ -15,7 +17,7 @@ public class Player extends Entity{
 
         super(sprite, origin, size);
         acc = 2f;
-        maxSpeed = 4f;
+        maxSpeed = 8f;
         bounds.setXOffset(50);
         bounds.setYOffset(30);
     }
@@ -86,9 +88,24 @@ public class Player extends Entity{
 
 
 
-    public void update(){
+    public void update(Enemy enemy){
         super.update();
         move();
+
+        if(bounds.Kill(enemy.getBounds()) && enemy.alive){
+            setPos( new Vector2f(0+(GamePanel.width/2)-150,0+(GamePanel.height/2)+150));
+            PlayState.map.x = dx;
+            PlayState.map.y = dy;
+        }
+
+        if(attack && hitBounds.collides(enemy.getBounds())&&enemy.checkHP()){
+            System.out.println("LOL");
+            enemy.removeLife();
+            if(!enemy.checkHP()){
+                enemy.dead();
+                System.out.println("Enemy dead");
+            }
+        }
         if(!bounds.collisionTile(dx,0)){
             PlayState.map.x+=dx;
             pos.x += dx;
@@ -105,9 +122,15 @@ public class Player extends Entity{
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.cyan);
+        g.setColor(Color.green);
         g.drawRect(((int) (pos.getWorldVar().x+bounds.getXOffset())), (int) (pos.getWorldVar().y+bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
         g.drawImage(ani.getImage(),(int) (pos.getWorldVar().x), (int) (pos.getWorldVar().y), size, size,null );
+
+        if(attack) {
+            g.setColor(Color.red);
+            g.drawRect((int)(hitBounds.getPos().getWorldVar().x + hitBounds.getXOffset()),(int)(hitBounds.getPos().getWorldVar().y + hitBounds.getYOffset()),(int)hitBounds.getWidth(),(int)hitBounds.getHeight());
+        }
+
     }
 
     public void input(MouseHandler mouse, KeyHandler key) {
@@ -146,5 +169,9 @@ public class Player extends Entity{
         } else {
             attack = false;
         }
+    }
+
+    private Vector2f ResetPos(){
+        return new Vector2f(0+(GamePanel.width/2)-150,0+(GamePanel.height/2)+150);
     }
 }
