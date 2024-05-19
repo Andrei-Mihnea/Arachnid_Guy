@@ -3,8 +3,10 @@ package Game.States;
 import Game.Entity.Enemy;
 import Game.Entity.Player;
 import Game.GamePanel;
+import Game.Game_Launcher;
 import Game.Graphics.Font;
 import Game.Graphics.Sprite;
+import Game.SQL;
 import Game.Tiles.TileManager;
 import Game.Util.KeyHandler;
 import Game.Util.MouseHandler;
@@ -24,11 +26,13 @@ public class PlayState extends GameState{
     private LevelManager lm;
     private Sprite sprite_enemy;
 
+    public SQL db;
     public static Vector2f map;
     static int CurrLevel = 0;
 
     public PlayState(GameStateManager gsm){
         super(gsm);
+        db = new SQL();
         map = new Vector2f();
         Vector2f.setWorldVar(map.x,map.y);
         ok = false;
@@ -36,10 +40,11 @@ public class PlayState extends GameState{
         font = new Font("font/font.png",10,10);
         lm = new LevelManager();
         sprite_enemy = new Sprite("entity/guard_white_enemy.png",16);
-
         sprite_enemy.setSize(16,16);
-
-
+        player.kills = db.GetKills();
+        if(player.kills == 0){
+            db.add(0);
+        }
         lm.lvl0();
         player = new Player(new Sprite("entity/Onyx_Cartier.png",32), lm.player_positions.elementAt(0), 128);
         enemies = new Vector<Enemy>();
@@ -68,6 +73,10 @@ public class PlayState extends GameState{
 
         }
 
+        if(player.kills != db.GetKills()){
+            db.updateKills(player.kills);
+        }
+
         if(enemies.size() == 0 ){
             if(CurrLevel == 0)
                 goToLVL1();
@@ -87,10 +96,11 @@ public class PlayState extends GameState{
     }
 
     public void render(Graphics2D g){
-
+        String KillStr = String.valueOf(player.kills);
         tm.render(g);
         Sprite.drawArray(g,font, GamePanel.oldFrameCount+"FPS", new Vector2f(GamePanel.width -192 ,32),32,32);
         Sprite.drawArray(g,font,damn,new Vector2f(0,64),32,32,21,0);
+        Sprite.drawArray(g,font,KillStr + " Kills", new Vector2f(GamePanel.width -192 ,64),32,20);
         player.render(g);
         for(int i = 0; i < enemies.size();++i) {
             enemies.elementAt(i).render(g);

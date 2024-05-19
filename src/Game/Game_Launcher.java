@@ -2,6 +2,8 @@ package Game;
 
 public class Game_Launcher {
     public Window window;
+    //public static SQL db;
+
     public Game_Launcher(){
         window = new Window();
 

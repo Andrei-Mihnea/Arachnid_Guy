@@ -13,6 +13,8 @@ import java.sql.SQLOutput;
 
 public class Player extends Entity{
 
+    public static int kills = 0;
+
     public Player(Sprite sprite, Vector2f origin, int size) {
 
         super(sprite, origin, size);
@@ -99,10 +101,10 @@ public class Player extends Entity{
         }
 
         if(attack && hitBounds.collides(enemy.getBounds())&&enemy.checkHP()){
-            System.out.println("LOL");
             enemy.removeLife();
             if(!enemy.checkHP()){
                 enemy.dead();
+                ++kills;
                 System.out.println("Enemy dead");
             }
         }
