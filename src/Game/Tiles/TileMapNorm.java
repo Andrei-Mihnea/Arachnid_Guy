@@ -32,4 +32,10 @@ public class TileMapNorm extends TileMap{
             blocks.get(i).render(g);
         }
     }
+
+    public void destroy(Graphics2D g){
+        for(Block block: blocks){
+            block.delete(g);
+        }
+    }
 }

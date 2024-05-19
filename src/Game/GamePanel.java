@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
     private boolean running = false;
 
     private BufferedImage img;
-    private Graphics2D g;
+    public static Graphics2D g;
 
     private GameStateManager gsm;
     private boolean Started = false;

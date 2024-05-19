@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 
 public abstract class Entity {
 
+    public boolean alive;
+
     private int UP = 3;
     private int DOWN = 0;
     private int RIGHT = 2;
@@ -29,7 +31,6 @@ public abstract class Entity {
     protected Vector2f pos;
     protected int size;
 
-    protected boolean alive;
     protected boolean up;
     protected boolean down;
     protected boolean right;

@@ -94,4 +94,11 @@ public class TileManager {
             tileMap.render(g);
         }
     }
+
+    public void deleteCurrentTiles(Graphics2D g){
+        for(TileMap tileMap :tm){
+            tileMap.destroy(g);
+        }
+    }
+
 }

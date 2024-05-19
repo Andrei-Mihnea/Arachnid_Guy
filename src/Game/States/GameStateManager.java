@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class GameStateManager {
 
     private ArrayList<GameState>  states;
+    private PlayState s;
 
     public static Vector2f map;
 
@@ -23,7 +24,7 @@ public class GameStateManager {
         map = new Vector2f(GamePanel.width,GamePanel.height);
         Vector2f.setWorldVar(map.x,map.y);
         states = new ArrayList<GameState>();
-
+        s = new PlayState(this);
         
         states.add(new PlayState(this));
 
@@ -70,6 +71,7 @@ public class GameStateManager {
     public void render(Graphics2D g){
         for(int i = 0; i < states.size(); ++i) {
             states.get(i).render(g);
+
         }
     }
 }

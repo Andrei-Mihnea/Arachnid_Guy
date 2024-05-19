@@ -24,6 +24,10 @@ public abstract class Block {
 
     public void render(Graphics2D g){
         g.drawImage(img, (int) pos.getWorldVar().x, (int) pos.getWorldVar().y,w,h,null);
+
+    }
+    public void delete(Graphics2D g){
+        //g.dispose();
     }
 
 }
