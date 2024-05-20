@@ -3,7 +3,6 @@ package Game.States;
 import Game.Entity.Enemy;
 import Game.Entity.Player;
 import Game.GamePanel;
-import Game.Game_Launcher;
 import Game.Graphics.Font;
 import Game.Graphics.Sprite;
 import Game.SQL;
@@ -19,16 +18,17 @@ public class PlayState extends GameState{
 
     public boolean ok;
 
+    private float originalSpeed;
     private Font font;
     private Player player;
     private Vector<Enemy> enemies;
     private TileManager tm;
     private LevelManager lm;
-    private Sprite sprite_enemy;
+    private Sprite sprite_enemy1,sprite_enemy2,sprite_enemy3;
 
     public SQL db;
     public static Vector2f map;
-    static int CurrLevel = 0;
+    public static int CurrLevel = 0;
 
     public PlayState(GameStateManager gsm){
         super(gsm);
@@ -39,8 +39,16 @@ public class PlayState extends GameState{
         tm = new TileManager("tile/lvl0.xml");
         font = new Font("font/font.png",10,10);
         lm = new LevelManager();
-        sprite_enemy = new Sprite("entity/guard_white_enemy.png",16);
-        sprite_enemy.setSize(16,16);
+
+        sprite_enemy1 = new Sprite("entity/guard_white_enemy.png",16);
+        sprite_enemy1.setSize(16,16);
+
+        sprite_enemy2 = new Sprite("entity/guard_yellow_enemy.png",16);
+        sprite_enemy2.setSize(16,16);
+
+        sprite_enemy3 = new Sprite("entity/guard_orange_enemy.png",16);
+        sprite_enemy3.setSize(16,16);
+
         player.kills = db.GetKills();
         if(player.kills == 0){
             db.add(0);
@@ -49,7 +57,7 @@ public class PlayState extends GameState{
         player = new Player(new Sprite("entity/Onyx_Cartier.png",32), lm.player_positions.elementAt(0), 128);
         enemies = new Vector<Enemy>();
         for(int i =0 ; i < lm.enemy_positions.elementAt(0).size();++i){
-           Enemy enemy =  new Enemy(sprite_enemy,lm.enemy_positions.elementAt(0).elementAt(i) , 64);
+           Enemy enemy =  new Enemy(sprite_enemy1,lm.enemy_positions.elementAt(0).elementAt(i) , 64);
             //Enemy enemy2 =  new Enemy(sprite_enemy,lm.enemy_positions.elementAt(1).elementAt(i) , 64);
             enemy.setOrder(0,1,2,3,4);
             enemies.add(enemy);
@@ -57,15 +65,16 @@ public class PlayState extends GameState{
         }
 
 
-
-
     }
     private String damn = "Level_Demo";
 
     public void update(){
+
         Vector2f.setWorldVar(map.x-35, map.y+100);
+        player.update(enemies);
+        //player.update2(enemies.elementAt(0));
+
         for(int i = 0; i < enemies.size();++i) {
-            player.update(enemies.elementAt(i));
             enemies.elementAt(i).update(player);
             if(!enemies.elementAt(i).alive){
                 enemies.remove(i);
@@ -82,7 +91,12 @@ public class PlayState extends GameState{
                 goToLVL1();
             else if (CurrLevel == 1)
             {
-                //goToLevel2();
+                goToLVL2();
+            }
+            else{
+                if(CurrLevel == 2){
+                    goToCredits();
+                }
             }
 
             ok = true;
@@ -115,12 +129,51 @@ public class PlayState extends GameState{
         tm = new TileManager("tile/lvl1.xml");
         player = new Player(new Sprite("entity/Onyx_Cartier.png",32), lm.player_positions.elementAt(1), 128);
         enemies = new Vector<Enemy>();
-
         for(int i =0 ; i < lm.enemy_positions.elementAt(1).size();++i) {
-            Enemy enemy = new Enemy(sprite_enemy, lm.enemy_positions.elementAt(1).elementAt(i), 64);
+            Enemy enemy = new Enemy(sprite_enemy2, lm.enemy_positions.elementAt(1).elementAt(i), 64);
+            enemy.setHP(2000);
             enemy.setOrder(0, 1, 2, 3, 4);
             enemies.add(enemy);
         }
+
+        ChangeMapPosOnLevelChange(1);
+    }
+
+    public void ChangeMapPosOnLevelChange(int i)
+    {
+        Vector2f v = new Vector2f(lm.player_positions.elementAt(i));
+        PlayState.map = new Vector2f(v.x - 490, v.y - 510);
+        //System.out.println("AAA " + lm.player_positions.elementAt(1).x + " " + lm.player_positions.elementAt(1).y + " | " + PlayState.map.x + " " + PlayState.map.y);
+    }
+
+    public void goToLVL2(){
+        lm.lvl2();
+        System.out.println("CHANGE LEVEL");;
+        tm.deleteCurrentTiles(GamePanel.g);
+        tm = new TileManager("tile/lvl2.xml");
+        player = new Player(new Sprite("entity/Onyx_Cartier.png",32), lm.player_positions.elementAt(2), 128);
+        enemies = new Vector<Enemy>();
+
+        for(int i =0 ; i < lm.enemy_positions.elementAt(2).size();++i) {
+            Enemy enemy = new Enemy(sprite_enemy3, lm.enemy_positions.elementAt(2).elementAt(i), 64);
+            enemy.setOrder(0, 1, 2, 3, 4);
+            enemy.setHP(3);
+            enemies.add(enemy);
+        }
+
+        ChangeMapPosOnLevelChange(2);
+    }
+
+    public void goToCredits(){
+        lm.lvl2();
+        System.out.println("CHANGE LEVEL");;
+        tm.deleteCurrentTiles(GamePanel.g);
+        tm = new TileManager("tile/credit.xml");
+        player = new Player(new Sprite("entity/Onyx_Cartier.png",32), lm.player_positions.elementAt(2), 128);
+        enemies = new Vector<Enemy>();
+        enemies.add(new Enemy(new Sprite("entity/Onyx_Cartier.png",32), lm.player_positions.elementAt(2),128));
+
+        ChangeMapPosOnLevelChange(2);
     }
 
 }

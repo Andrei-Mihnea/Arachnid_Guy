@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Enemy extends Entity{
     private int r;
-    private int hp = 1;
+    private int hp;
     AABB sense;
     AABB tc;
 
@@ -19,6 +19,7 @@ public class Enemy extends Entity{
         //sprite.setWidth(sprite.w/2);
 
         //System.out.println(sprite.w+", "+sprite.h);
+        hp = 1;
         acc = 0.2f;
         maxSpeed = 3f;
         r = 500;
@@ -98,22 +99,22 @@ public class Enemy extends Entity{
     }
 
 
-    public void update(Player player) {
+    public void update(Player Toplayer) {
         if (alive) {
             super.update();
-            move(player);
+            move(Toplayer);
 
             if (!sense.collisionTile(dx, 0)) {
                 bounds.pos.x += dx;
                 sense.getPos().x += dx;
-                pos.x += dx;
+                this.pos.x += dx;
 
 
             }
             if (!sense.collisionTile(0, dy)) {
                 bounds.pos.y += dy;
                 sense.getPos().y += dy;
-                pos.y += dy;
+                this.pos.y += dy;
             }
         }else{
 
@@ -132,6 +133,8 @@ public class Enemy extends Entity{
     public int getH(){
         return sprite.h;
     }
+
+    public void setHP(int hp) { this.hp = hp; }
 
     @Override
     public void render(Graphics2D g){

@@ -32,6 +32,7 @@ public abstract class Entity {
     protected int size;
 
     protected boolean up;
+    protected boolean once;
     protected boolean down;
     protected boolean right;
     protected boolean left;
@@ -56,7 +57,7 @@ public abstract class Entity {
         this.sprite = sprite;
         pos = new Vector2f(origin);
         this.size = size;
-
+        once = false;
         alive = true;
         bounds = new AABB(origin, size / 2 - 30, size - 55);
         hitBounds = new AABB(origin, size, size);
@@ -122,46 +123,46 @@ public abstract class Entity {
         if (up) {
             if (attack) {
                 if (currentAnimation != ATTACKU || ani.getDelay() == -1) {
-                    setAnimation(ATTACKU, sprite.getSpriteArray(ATTACKU), 4);
+                    setAnimation(ATTACKU, sprite.getSpriteArray(ATTACKU), 8);
                 }
             } else if (currentAnimation != UP || ani.getDelay() == -1) {
-                setAnimation(UP, sprite.getSpriteArray(UP), 4);
+                setAnimation(UP, sprite.getSpriteArray(UP), 8);
             }
         } else if (down) {
             if (attack) {
                 if (currentAnimation != ATTACKD || ani.getDelay() == -1) {
-                    setAnimation(ATTACKD, sprite.getSpriteArray(ATTACKD), 4);
+                    setAnimation(ATTACKD, sprite.getSpriteArray(ATTACKD), 8);
                 }
             } else if (currentAnimation != DOWN || ani.getDelay() == -1) {
-                setAnimation(DOWN, sprite.getSpriteArray(DOWN), 4);
+                setAnimation(DOWN, sprite.getSpriteArray(DOWN), 8);
             }
         } else if (right) {
             if (attack) {
                 if (currentAnimation != ATTACKR || ani.getDelay() == -1) {
-                    setAnimation(ATTACKR, sprite.getSpriteArray(ATTACKR), 4);
+                    setAnimation(ATTACKR, sprite.getSpriteArray(ATTACKR), 8);
                 }
             } else if (currentAnimation != RIGHT || ani.getDelay() == -1) {
-                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 4);
+                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 8);
             }
         } else if (left) {
             if (attack) {
                 if (currentAnimation != ATTACKL || ani.getDelay() == -1) {
-                    setAnimation(ATTACKL, sprite.getSpriteArray(ATTACKL), 4);
+                    setAnimation(ATTACKL, sprite.getSpriteArray(ATTACKL), 8);
                 }
             } else if (currentAnimation != LEFT || ani.getDelay() == -1) {
-                setAnimation(LEFT, sprite.getSpriteArray(LEFT), 4);
+                setAnimation(LEFT, sprite.getSpriteArray(LEFT), 8);
             }
 
         } else if (attack) {
             if (currentAnimation != ATTACKR || ani.getDelay() == -1) {
-                setAnimation(ATTACKR, sprite.getSpriteArray(ATTACKR), 4);
+                setAnimation(ATTACKR, sprite.getSpriteArray(ATTACKR), 8);
             }
         } else if( !alive ) {
             if (currentAnimation != DEAD || ani.getDelay() == -1){
-                setAnimation( DEAD, sprite.getSpriteArray(DEAD),4);
+                setAnimation( DEAD, sprite.getSpriteArray(DEAD),8);
             }
         } else {
-            setAnimation(DOWN, sprite.getSpriteArray(DOWN), 4);
+            setAnimation(DOWN, sprite.getSpriteArray(DOWN), 8);
         }
 
     }
@@ -197,5 +198,9 @@ public abstract class Entity {
     public abstract void render(Graphics2D g);
     public  void input(KeyHandler key, MouseHandler mouse){
 
+    }
+
+    public float getMaxSpeed(){
+        return maxSpeed;
     }
 }

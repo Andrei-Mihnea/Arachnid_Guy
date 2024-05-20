@@ -48,6 +48,8 @@ public class TileMapObj  extends TileMap{
         v.add(4);
         v.add(5);
         v.add(6);
+        v.add(11);
+        v.add(12);
         v.add(13);
         v.add(14);
         v.add(17);
@@ -61,6 +63,38 @@ public class TileMapObj  extends TileMap{
         v.add(43);
         v.add(44);
         v.add(45);
+        v.add(79);
+        v.add(85);
+        v.add(86);
+        v.add(92);
+        v.add(151);
+        v.add(152);
+        v.add(153);
+        v.add(166);
+        v.add(167);
+        v.add(168);
+        v.add(225);
+        v.add(226);
+        v.add(227);
+        v.add(240);
+        v.add(241);
+        v.add(242);
+        v.add(299);
+        v.add(1278);
+        v.add(1337);
+        v.add(1350);
+        v.add(1485);
+        v.add(1486);
+        v.add(1491);
+        v.add(1492);
+        v.add(1497);
+        v.add(1498);
+        v.add(1559);
+        v.add(1560);
+        v.add(1565);
+        v.add(1566);
+        v.add(1571);
+        v.add(1572);
     }
     private boolean check(int x){
         for(int i = 0; i < v.size(); ++i){
